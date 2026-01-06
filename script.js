@@ -147,46 +147,17 @@ function init() {
 
     setTimeout(detectVPN, 1000);
 
-    // Menu handlers: guarded (menu removed in new UI)
-    const menuBtn = document.getElementById('menuBtn');
-    const dropdownMenu = document.getElementById('dropdownMenu');
-    const languageMenu = document.getElementById('languageMenu');
-    const cancelBtn = document.getElementById('cancelBtn');
-    const cancelLangBtn = document.getElementById('cancelLangBtn');
-    const langBtns = document.querySelectorAll('.lang-btn');
-    const menuItems = document.querySelectorAll('.menu-item[data-section]');
-
-    if (menuBtn && dropdownMenu) menuBtn.addEventListener('click', () => dropdownMenu.classList.toggle('hidden'));
-    if (cancelBtn && dropdownMenu) cancelBtn.addEventListener('click', () => dropdownMenu.classList.add('hidden'));
-    if (cancelLangBtn && languageMenu && dropdownMenu) cancelLangBtn.addEventListener('click', () => { languageMenu.classList.add('hidden'); dropdownMenu.classList.remove('hidden'); });
-
-    if (menuItems && menuItems.length) {
-        menuItems.forEach(item => item.addEventListener('click', function(e){
-            e.preventDefault();
-            const section = this.dataset.section;
-            if (!section) return;
-            document.querySelectorAll('.section').forEach(s => { s.classList.remove('active'); s.classList.add('hidden'); });
-            const target = document.getElementById(section);
-            if (target) { target.classList.remove('hidden'); target.classList.add('active'); }
-            if (dropdownMenu) dropdownMenu.classList.add('hidden');
-        }));
-    }
-
-    if (langBtns && langBtns.length) langBtns.forEach(btn => btn.addEventListener('click', function(){ applyTranslation(this.dataset.lang || 'en'); if (languageMenu) languageMenu.classList.add('hidden'); }));
-
     // Download buttons
     const downloadBtns = document.querySelectorAll('.download-btn');
     downloadBtns.forEach(button => {
         button.addEventListener('click', function(){
             if (this.classList.contains('loading')) return;
             const fileName = this.dataset.file;
-            if (!fileName) return; // guard: no attempt to download undefined
             startDownload(this, fileName);
         });
     });
 
     function startDownload(button, fileName){
-        if (!fileName) return; // extra guard
         button.classList.add('loading');
         const btnText = button.querySelector('.btn-text');
         const loadingBars = button.querySelector('.loading-bars');
@@ -228,101 +199,39 @@ function init() {
     }
     animateBackground();
 
-    // --- Simple client-side auth (localStorage) ---
-    const loginBtn = document.getElementById('loginBtn');
-    const registerBtn = document.getElementById('registerBtn');
-    const logoutBtn = document.getElementById('logoutBtn');
-    const userArea = document.getElementById('userArea');
-    const userDisplay = document.getElementById('userDisplay');
-
-    const loginModal = document.getElementById('loginModal');
-    const registerModal = document.getElementById('registerModal');
-    const loginCancel = document.getElementById('loginCancel');
-    const regCancel = document.getElementById('regCancel');
-
-    const show = el => { if (el) el.classList.remove('hidden'); };
-    const hide = el => { if (el) el.classList.add('hidden'); };
-
-    function sha256hex(str){
-        const enc = new TextEncoder();
-        return crypto.subtle.digest('SHA-256', enc.encode(str)).then(buf => {
-            return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
-        });
-    }
-
-    function loadUsers(){
-        try { return JSON.parse(localStorage.getItem('users')||'{}'); } catch(e){ return {}; }
-    }
-    function saveUsers(u){ localStorage.setItem('users', JSON.stringify(u)); }
-
-    async function registerUser(){
-        const u = document.getElementById('regUsername').value.trim();
-        const p = document.getElementById('regPassword').value;
-        const c = document.getElementById('regConfirm').value;
-        const err = document.getElementById('regError');
-        err.textContent='';
-        if (!u) { err.textContent='Введите имя пользователя.'; return; }
-        if (p.length < 6) { err.textContent='Пароль минимум 6 символов.'; return; }
-        if (p !== c) { err.textContent='Пароли не совпадают.'; return; }
-        const users = loadUsers();
-        if (users[u]) { err.textContent='Пользователь уже существует.'; return; }
-        const hash = await sha256hex(p);
-        users[u] = { pass: hash, created: Date.now() };
-        saveUsers(users);
-        localStorage.setItem('currentUser', u);
-        updateAuthUI();
-        hide(registerModal);
-    }
-
-    async function loginUser(){
-        const u = document.getElementById('loginUsername').value.trim();
-        const p = document.getElementById('loginPassword').value;
-        const err = document.getElementById('loginError');
-        err.textContent='';
-        if (!u || !p) { err.textContent='Введите логин и пароль.'; return; }
-        const users = loadUsers();
-        if (!users[u]) { err.textContent='Пользователь не найден.'; return; }
-        const hash = await sha256hex(p);
-        if (hash !== users[u].pass) { err.textContent='Неверный пароль.'; return; }
-        localStorage.setItem('currentUser', u);
-        updateAuthUI();
-        hide(loginModal);
-    }
-
-    function logout(){
-        localStorage.removeItem('currentUser');
-        updateAuthUI();
-    }
-
-    function updateAuthUI(){
-        const cur = localStorage.getItem('currentUser');
-        if (cur){
-            // truncate nickname to max 16 chars and add ellipsis if needed
-            const maxLen = 16;
-            let display = cur;
-            if (display.length > maxLen) display = display.slice(0, maxLen - 3) + '...';
-            userDisplay.textContent = display;
-            userArea.style.display = 'flex';
-            if (loginBtn) loginBtn.style.display = 'none';
-            if (registerBtn) registerBtn.style.display = 'none';
-        } else {
-            userArea.style.display = 'none';
-            if (loginBtn) loginBtn.style.display = 'inline-flex';
-            if (registerBtn) registerBtn.style.display = 'inline-flex';
+    // Добавляем интерактивные красные анимации на элементы
+    const sections = document.querySelectorAll('.section');
+    sections.forEach(section => {
+        if (section.classList.contains('active')) {
+            section.style.animation = 'redSlide 0.8s ease-out, fadeIn 0.8s ease-out';
         }
-    }
+    });
 
-    // wire buttons
-    if (loginBtn) loginBtn.addEventListener('click', ()=>{ show(loginModal); });
-    if (registerBtn) registerBtn.addEventListener('click', ()=>{ show(registerModal); });
-    if (loginCancel) loginCancel.addEventListener('click', ()=> hide(loginModal));
-    if (regCancel) regCancel.addEventListener('click', ()=> hide(registerModal));
-    if (document.getElementById('regSubmit')) document.getElementById('regSubmit').addEventListener('click', registerUser);
-    if (document.getElementById('loginSubmit')) document.getElementById('loginSubmit').addEventListener('click', loginUser);
-    if (logoutBtn) logoutBtn.addEventListener('click', logout);
+    // Анимации на клик элементов
+    const allAnimatedElements = document.querySelectorAll('.social-btn, .download-btn, .mod-card');
+    allAnimatedElements.forEach(el => {
+        el.addEventListener('mouseenter', function() {
+            this.style.animation = this.style.animation + ', redPulse 1s infinite, redGlow 1.5s infinite';
+        });
+        
+        el.addEventListener('mouseleave', function() {
+            // Resetanimate
+            void this.offsetWidth;
+        });
 
-    // initialize auth UI
-    updateAuthUI();
+        el.addEventListener('click', function() {
+            this.style.animation = this.style.animation + ', redPop 0.6s ease-out';
+        });
+    });
+
+    // Микро-анимации на случайные элементы каждые 3 секунды
+    setInterval(() => {
+        const randomElements = document.querySelectorAll('.mod-title, .welcome-title, .section-title');
+        if (randomElements.length > 0) {
+            const randomEl = randomElements[Math.floor(Math.random() * randomElements.length)];
+            randomEl.style.animation = randomEl.style.animation + ', redHeartPulse 1s ease-in-out';
+        }
+    }, 3000);
 }
 
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();

@@ -15,14 +15,6 @@
         <header>
             <div class="header-content" style="flex-direction:column;align-items:center;">
                 <h1 class="logo">Sanbox Mods</h1>
-                <div class="auth-controls" id="authControls">
-                    <button id="loginBtn" class="auth-image-btn" aria-label="Войти">Вход</button>
-                    <button id="registerBtn" class="auth-image-btn" aria-label="Регистрация">Регистрация</button>
-                    <div id="userArea" style="display:none; align-items:center; gap:8px;">
-                        <div id="userBadge" class="user-badge"><span id="userDisplay" class="user-nick"></span></div>
-                        <button id="logoutBtn" class="auth-logout">Выйти</button>
-                    </div>
-                </div>
             </div>
         </header>
 
@@ -88,35 +80,6 @@
                 </div>
             </section>
 
-            <section id="contact" class="section hidden">
-                <div class="contact-section">
-                    <h2 class="section-title">Связь с Нами</h2>
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <p class="contact-text">Наш телеграм канал:</p>
-                            <a href="https://t.me/S1nboxChe2ts" target="_blank" class="contact-btn">
-                                <img src="t3.jpg" alt="Telegram" class="btn-icon">
-                                <span>@S1nboxChe2ts</span>
-                            </a>
-                        </div>
-                        <div class="contact-item">
-                            <p class="contact-text">Дискорд создателя:</p>
-                            <a href="https://discord.com/users/sanbox184" target="_blank" class="contact-btn">
-                                <img src="d2.jpg" alt="Discord" class="btn-icon">
-                                <span>@sanbox184</span>
-                            </a>
-                        </div>
-                        <div class="contact-item">
-                            <p class="contact-text">Телеграм создателя:</p>
-                            <a href="https://t.me/Sanbox184" target="_blank" class="contact-btn">
-                                <img src="t3.jpg" alt="Telegram" class="btn-icon">
-                                <span>@Sanbox184</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             <div class="info-section">
                 <div class="divider"></div>
                 <p class="info-text" id="infoText">
@@ -131,38 +94,5 @@
     </div>
 
     <script src="script.js"></script>
-
-    <!-- Auth modals -->
-    <div id="loginModal" class="modal hidden">
-        <div class="modal-inner">
-            <h3>Вход</h3>
-            <label>Имя пользователя</label>
-            <input id="loginUsername" type="text" placeholder="username">
-            <label>Пароль</label>
-            <input id="loginPassword" type="password" placeholder="password">
-                <div style="display:flex;gap:10px;margin-top:12px;">
-                <button id="loginSubmit" class="auth-submit">Войти</button>
-                <button id="loginCancel" class="menu-btn">Отмена</button>
-            </div>
-            <p id="loginError" class="info-text" style="margin-top:8px; color:#ffd6d6;"></p>
-        </div>
-    </div>
-
-    <div id="registerModal" class="modal hidden">
-        <div class="modal-inner">
-            <h3>Регистрация</h3>
-            <label>Имя пользователя</label>
-            <input id="regUsername" type="text" placeholder="username">
-            <label>Пароль</label>
-            <input id="regPassword" type="password" placeholder="password">
-            <label>Подтвердите пароль</label>
-            <input id="regConfirm" type="password" placeholder="confirm password">
-            <div style="display:flex;gap:10px;margin-top:12px;">
-                <button id="regSubmit" class="auth-submit">Зарегистрироваться</button>
-                <button id="regCancel" class="menu-btn">Отмена</button>
-            </div>
-            <p id="regError" class="info-text" style="margin-top:8px; color:#ffd6d6;"></p>
-        </div>
-    </div>
 </body>
 </html>
