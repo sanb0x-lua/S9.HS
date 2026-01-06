@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanbox Mods</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="animated-bg">
+        <div class="lines-container" id="lines"></div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1 class="logo">Sanbox Mods</h1>
+                <button class="menu-btn" id="menuBtn">
+                    <img src="menu.png" alt="Menu" class="menu-icon">
+                </button>
+            </div>
+            
+            <nav class="dropdown-menu hidden" id="dropdownMenu">
+                <div class="menu-content">
+                    <a href="#" class="menu-item" data-section="home">🏠 Главная</a>
+                    <a href="#" class="menu-item" data-section="mods">🎮 Моды</a>
+                    <a href="#" class="menu-item" data-section="contact">📞 Связь</a>
+                    <a href="#" class="menu-item" data-section="language">🌐 Язык</a>
+                    <button class="menu-item cancel-btn" id="cancelBtn">❌ Отмена</button>
+                </div>
+            </nav>
+            
+            <nav class="language-menu hidden" id="languageMenu">
+                <div class="menu-content">
+                    <button class="menu-item lang-btn" data-lang="ru">🇷🇺 Русский</button>
+                    <button class="menu-item lang-btn" data-lang="en">🇺🇸 English</button>
+                    <button class="menu-item cancel-btn" id="cancelLangBtn">❌ Отмена</button>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <section id="home" class="section active">
+                <div class="welcome-section">
+                    <h2 class="welcome-title">Добро пожаловать в Моды и Скрипты</h2>
+                    <p class="welcome-text" id="welcomeText">
+                        Добро пожаловать на сайт модов и скриптов. Вам нужно открыть меню в правом верхнем углу и нажать кнопку "Моды", чтобы просмотреть доступные модификации. Все скрипты и моды протестированы и безопасны в использовании.
+                    </p>
+                    
+                    <div class="social-buttons">
+                        <a href="https://discord.com/users/sanbox184" target="_blank" class="social-btn">
+                            <img src="d2.jpg" alt="Discord" class="btn-icon">
+                            <span id="discordBtn">DISCORD</span>
+                        </a>
+                        <a href="https://t.me/S1nboxChe2ts" target="_blank" class="social-btn">
+                            <img src="t3.jpg" alt="Telegram" class="btn-icon">
+                            <span id="telegramBtn">TELEGRAM</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="mods" class="section hidden">
+                <div class="mods-section">
+                    <h2 class="section-title">Доступные Моды</h2>
+                    <p class="section-subtitle">Выберите нужную модификацию</p>
+                    
+                    <div class="mods-grid">
+                        <div class="mod-card">
+                            <div class="mod-content">
+                                <div class="mod-image">
+                                    <img src="Script.png" alt="Script" class="mod-img">
+                                </div>
+                                <div class="mod-info">
+                                    <h3 class="mod-title">Скрипт</h3>
+                                    <p class="mod-desc" id="scriptDesc">Скрипт для разрушения игры</p>
+                                </div>
+                            </div>
+                            <button class="download-btn" data-file="Script.zip">
+                                <span class="btn-text" id="downloadScript">Скачать</span>
+                                <div class="loading-bars"></div>
+                            </button>
+                        </div>
+
+                        <div class="mod-card">
+                            <div class="mod-content">
+                                <div class="mod-image">
+                                    <img src="HS_Mod.png" alt="Hyper Sandbox Mod" class="mod-img">
+                                </div>
+                                <div class="mod-info">
+                                    <h3 class="mod-title">Hypper Sandbox Mod v1.0</h3>
+                                    <p class="mod-desc" id="hsDesc">Мод: Нет рекламы, Устранение некоторых багов, Удаление половины античита, Добавление смещений для функций</p>
+                                </div>
+                            </div>
+                            <button class="download-btn" data-file="Hypper Sandbox Mod.zip">
+                                <span class="btn-text" id="downloadHS">Скачать</span>
+                                <div class="loading-bars"></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="section hidden">
+                <div class="contact-section">
+                    <h2 class="section-title">Связь с Нами</h2>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <p class="contact-text">Наш телеграм канал:</p>
+                            <a href="https://t.me/S1nboxChe2ts" target="_blank" class="contact-btn">
+                                <img src="t3.jpg" alt="Telegram" class="btn-icon">
+                                <span>@S1nboxChe2ts</span>
+                            </a>
+                        </div>
+                        <div class="contact-item">
+                            <p class="contact-text">Дискорд создателя:</p>
+                            <a href="https://discord.com/users/sanbox184" target="_blank" class="contact-btn">
+                                <img src="d2.jpg" alt="Discord" class="btn-icon">
+                                <span>@sanbox184</span>
+                            </a>
+                        </div>
+                        <div class="contact-item">
+                            <p class="contact-text">Телеграм создателя:</p>
+                            <a href="https://t.me/Sanbox184" target="_blank" class="contact-btn">
+                                <img src="t3.jpg" alt="Telegram" class="btn-icon">
+                                <span>@Sanbox184</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="info-section">
+                <div class="divider"></div>
+                <p class="info-text" id="infoText">
+                    Вся инструкция по установке находится в архиве. Распакуйте скачанный ZIP-файл и откройте документ 'INSTALL.txt' для получения подробных указаний.
+                </p>
+            </div>
+        </main>
+
+        <footer>
+            <p id="footerText">By Sanbox</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
